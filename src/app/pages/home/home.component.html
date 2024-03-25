@@ -1,4 +1,4 @@
-<app-navigation (isSignup)="isSignup = $event"></app-navigation>
-<div>
+<app-navigation (isSignup)="toggleLogin($event)"></app-navigation>
+<div *ngIf="showLogin">
     <app-login [isSignup]="isSignup"></app-login>
 </div>
