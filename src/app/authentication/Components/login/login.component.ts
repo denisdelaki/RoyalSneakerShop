@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class LoginComponent {
 
-  @Input() isSignup: boolean = false; 
+  @Input() isSignup: boolean = true; 
   
 }
