@@ -6,10 +6,12 @@ import { HomeComponent } from './home/home.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { MatIconModule } from '@angular/material/icon';
 import { AuthenticationModule } from '../authentication/authentication.module';
+import { ProductListComponent } from './product-list/product-list.component';
 @NgModule({
   declarations: [
     HomeComponent,
-    NavigationComponent
+    NavigationComponent,
+    ProductListComponent
   ],
   imports: [
     CommonModule,
