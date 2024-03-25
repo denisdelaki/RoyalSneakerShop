@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { LoginComponent } from './Components/login/login.component';
-import { RegistrationComponent } from './Components/registration/registration.component';
 import { MaterialModule } from './material/material.module';
 import { AuthenticationComponent } from './Components/authentication/authentication.component';
 
@@ -11,7 +10,6 @@ import { AuthenticationComponent } from './Components/authentication/authenticat
 @NgModule({
   declarations: [
     LoginComponent,
-    RegistrationComponent,
     AuthenticationComponent
   ],
   imports: [
