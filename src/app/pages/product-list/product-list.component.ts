@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
@@ -6,22 +6,10 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
-export class ProductListComponent {
-  productsData = [
-    { id: 1, name: 'Product 1' },
-    { id: 2, name: 'Product 2' },
-    // Add more product data as needed
-  ];
+export class ProductListComponent implements OnInit {
 
-  // Table data source
-  // dataSource = new MatTableDataSource<any>(this.productsData);
-
-  // Paginator reference
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-
-  // Initialize paginator after view initialization
-  ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator;
-  }
+ ngOnInit(): void {
+console.log("products"); 
+ }
+  
 }
