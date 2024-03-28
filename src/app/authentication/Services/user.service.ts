@@ -8,22 +8,22 @@ import { Users } from '../../core/Models/Users';
 })
 export class UserService {
 
-  private apiUrl = 'https://example.com/api/users'; 
+  private apiUrl = 'https://fakestoreapi.com/users'; 
 
   constructor(private http: HttpClient) { }
 
   // User registration
   register(user: Users): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/register`, user);
+    return this.http.post<any>(`${this.apiUrl}`, user);
   }
 
   // User login
   login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/login`, { email, password });
+    return this.http.post<any>(`${this.apiUrl}`, { email, password });
   }
 
   // Update user profile
   updateProfile(user: Users): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/profile`, user);
+    return this.http.put<any>(`${this.apiUrl}`, user);
   }
 }

@@ -10,11 +10,9 @@ export class NavigationComponent {
 
   login() {
     this.isSignup.emit(false);
-    console.log(this.isSignup)
   }
 
   signup() {
     this.isSignup.emit(true);
-    console.log(this.isSignup)
   }
 }

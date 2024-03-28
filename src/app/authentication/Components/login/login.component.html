@@ -37,7 +37,8 @@
             </mat-form-field>
           </div>
         </div>
-        <button type="submit" class="btn btn-primary btn-block" style="background-color: black; color: white; border: none;">
+        <button type="submit" class="btn btn-primary btn-block" style="background-color: black; color: white; border: none;"
+        (click)="isSignup ? registerUser() : login()">
           {{ isSignup ? 'Sign Up' : 'Login' }}
         </button>
       </form>
