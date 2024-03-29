@@ -3,6 +3,8 @@ import { UserService } from '../../Services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -20,7 +22,8 @@ export class LoginComponent {
     private userService: UserService, 
     private formBuilder: FormBuilder, 
     private snackBar: MatSnackBar, 
-    private auth: AngularFireAuth
+    private auth: AngularFireAuth,
+    private router: Router
   ) {
     this.userForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -41,8 +44,14 @@ export class LoginComponent {
         .then(userCredential => {
           // Signup successful
           console.log('User signed up successfully:', userCredential.user);
+          if (userCredential?.user) {
+            localStorage.setItem('userId', userCredential.user.uid);
+            console.log('User ID:', userCredential.user.uid);
+          }
           // Show success snackbar
           this.openSnackBar('Signup successful');
+          // Navigate to 'myprofile' route
+          this.router.navigate(['/features/myprofile']);
         })
         .catch(error => {
           // Signup failed, handle error
@@ -82,8 +91,14 @@ export class LoginComponent {
         .then(userCredential => {
           // Handle successful login
           console.log('User logged in successfully:', userCredential.user);
+          if (userCredential?.user) {
+            localStorage.setItem('userId', userCredential.user.uid);
+            console.log('User ID:', userCredential.user.uid);
+          }
           // Show success snackbar
           this.openSnackBar('Login successful');
+          // Navigate to 'myprofile' route
+          this.router.navigate(['/features/myprofile']);
         })
         .catch(error => {
           // Handle login error
