@@ -36,4 +36,8 @@ export class NavigationComponent {
     this.isLoggedIn = false;
     this.router.navigate(['/']);
   }
+  cart(){
+    this.router.navigate(['/cart']);
+    console.log("clicked")
+  }
 }

@@ -68,13 +68,11 @@
     <div class="col">
         <button mat-button class="btn btn-danger custom-button w-100 w-sm-auto me-sm-2 mb-2 mb-sm-0" (click)="logout()">Logout</button>
     </div>
-</div>
-
-           
+</div>         
         <!-- Cart Icon -->
-        <a class="btn btn-outline: none ms-auto" routerLink="/cart" routerLinkActive="active">
-            <mat-icon style="color: white;">shopping_cart</mat-icon>
+        <a class="btn btn-outline: none ms-auto" routerLink="/cart" routerLinkActive="active" >
+            <mat-icon style="color: white;" (click)="cart()">shopping_cart</mat-icon>
             <span class="badge" style="color:white">0</span>
         </a>
-    </div>
+</div>
 </nav>

@@ -9,15 +9,7 @@ import { TruncatePipe } from '../../pipes/truncate.pipe';
   providers: [TruncatePipe]
 })
 export class ProductListComponent implements OnInit {
-addToCart(_t11: any) {
-throw new Error('Method not implemented.');
-}
-increaseQuantity(_t11: any) {
-throw new Error('Method not implemented.');
-}
-addToFavorites(_t11: any) {
-throw new Error('Method not implemented.');
-}
+
   products: any[] = [];
 
   constructor(private productService: ProductsService,
@@ -38,4 +30,13 @@ throw new Error('Method not implemented.');
       }
     );
   }
+  addToCart(id: string) {
+    console.log('Added to cart:', id);
+    }
+    increaseQuantity(id: string) {
+    throw new Error('Method not implemented.');
+    }
+    addToFavorites(id: string) {
+    throw new Error('Method not implemented.');
+    }
 }

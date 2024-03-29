@@ -8,12 +8,14 @@ import { AuthenticationModule } from '../authentication/authentication.module';
 import { ProductListComponent } from './Components/product-list/product-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { TruncatePipe } from './pipes/truncate.pipe';
+import { CartComponent } from './Components/cart/cart.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     ProductListComponent,
-    TruncatePipe
+    TruncatePipe,
+    CartComponent
   ],
   imports: [
     CommonModule,
