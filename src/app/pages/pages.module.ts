@@ -7,10 +7,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthenticationModule } from '../authentication/authentication.module';
 import { ProductListComponent } from './Components/product-list/product-list.component';
 import { SharedModule } from '../shared/shared.module';
+import { TruncatePipe } from './pipes/truncate.pipe';
+
 @NgModule({
   declarations: [
     HomeComponent,
-    ProductListComponent
+    ProductListComponent,
+    TruncatePipe
   ],
   imports: [
     CommonModule,

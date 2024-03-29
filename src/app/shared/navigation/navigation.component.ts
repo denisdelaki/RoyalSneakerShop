@@ -17,6 +17,10 @@ export class NavigationComponent {
         // If user ID exists, set isLoggedIn to true
         this.isLoggedIn = true;
     }
+    else
+    {
+      this.isLoggedIn = false;
+    }
 }
   login() {
     this.isSignup.emit(false);

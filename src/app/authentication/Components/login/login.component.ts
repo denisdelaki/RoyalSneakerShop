@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UserService } from '../../Services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
@@ -15,6 +15,7 @@ export class LoginComponent {
   //data passage to and from other components 
  
   @Input() isSignup: boolean = true;
+  @Output() isLoggedInChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   userForm: FormGroup;
   loginform: FormGroup;
 
@@ -51,6 +52,7 @@ export class LoginComponent {
           // Show success snackbar
           this.openSnackBar('Signup successful');
           // Navigate to 'myprofile' route
+          this.isLoggedInChange.emit(true) ;
           this.router.navigate(['/features/myprofile']);
         })
         .catch(error => {
@@ -97,6 +99,7 @@ export class LoginComponent {
           }
           // Show success snackbar
           this.openSnackBar('Login successful');
+          this.isLoggedInChange.emit(true) ;
           // Navigate to 'myprofile' route
           this.router.navigate(['/features/myprofile']);
         })
