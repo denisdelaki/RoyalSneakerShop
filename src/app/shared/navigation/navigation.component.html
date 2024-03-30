@@ -70,9 +70,9 @@
     </div>
 </div>         
         <!-- Cart Icon -->
-        <a class="btn btn-outline: none ms-auto" routerLink="/cart" routerLinkActive="active" >
+        <a class="btn btn-outline: none ms-auto" routerLink="/cart" routerLinkActive="active" *ngIf="cartItems" >
             <mat-icon style="color: white;" (click)="cart()">shopping_cart</mat-icon>
-            <span class="badge" style="color:white">0</span>
+            <span class="badge" style="color:white">{{ cartItems.length }}</span>
         </a>
 </div>
 </nav>

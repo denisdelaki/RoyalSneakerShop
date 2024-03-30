@@ -11,51 +11,57 @@
             </div>
           </div>
   
-          <div class="card rounded-3 mb-4">
+          <!-- Loop through cart items -->
+          <div *ngFor="let item of cartItems" class="card rounded-3 mb-4">
             <div class="card-body p-4">
               <div class="row d-flex justify-content-between align-items-center">
                 <div class="col-md-2 col-lg-2 col-xl-2">
-                  <img
-                    src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
-                    class="img-fluid rounded-3" alt="Cotton T-shirt">
+                  <!-- Use item.image or item.imageUrl based on your data structure -->
+                  <img [src]="item.image" class="img-fluid rounded-3" alt="Product Image">
                 </div>
                 <div class="col-md-3 col-lg-3 col-xl-3">
-                  <p class="lead fw-normal mb-2">Basic T-shirt</p>
-                  <p><span class="text-muted">Size: </span>M <span class="text-muted">Color: </span>Grey</p>
+                  <p class="lead fw-normal mb-2">{{ item.name }}</p>
+                  <p><span class="text-muted">Size: </span>{{ item.size }} <span class="text-muted">Color: </span>{{ item.color }}</p>
                 </div>
                 <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                  <button class="btn btn-link px-2"
-                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                  <!-- Input for quantity -->
+                  <button class="btn btn-link px-2" (click)="decreaseQuantity(item)">
                     <i class="fas fa-minus"></i>
                   </button>
   
-                  <input id="form1" min="0" name="quantity" value="2" type="number"
+                  <input min="0" name="quantity" [value]="getItemQuantity(item)"  type="number"
                     class="form-control form-control-sm" />
   
-                  <button class="btn btn-link px-2"
-                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                  <button class="btn btn-link px-2" (click)="increaseQuantity(item)">
                     <i class="fas fa-plus"></i>
                   </button>
                 </div>
                 <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                  <h5 class="mb-0">$499.00</h5>
+                  <!-- Display item price -->
+                  <h5 class="mb-0">{{ item.price }}</h5>
                 </div>
                 <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                  <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
+                  <!-- Button to remove item -->
+                  <button class="btn btn-link text-danger" (click)="removeItem(item)">
+                    <mat-icon style="color: rgb(210, 153, 9);">delete</mat-icon>
+                  </button>
                 </div>
               </div>
             </div>
           </div>
-           <div class="card mb-4">
+  
+          <!-- Discount code input and apply button -->
+          <div class="card mb-4">
             <div class="card-body p-4 d-flex flex-row">
               <div class="form-outline flex-fill">
-                <input type="text" id="form1" class="form-control form-control-lg" />
-                <label class="form-label" for="form1">Discound code</label>
+                <input type="text" id="discountCode" class="form-control form-control-lg" />
+                <label class="form-label" for="discountCode">Discount code</label>
               </div>
               <button type="button" class="btn btn-outline-warning btn-lg ms-3">Apply</button>
             </div>
           </div>
   
+          <!-- Proceed to pay button -->
           <div class="card">
             <div class="card-body">
               <button type="button" class="btn btn-warning btn-block btn-lg">Proceed to Pay</button>
@@ -66,3 +72,4 @@
       </div>
     </div>
   </section>
+  

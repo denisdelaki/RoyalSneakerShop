@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductsService } from '../../Services/products.service';
+import { CartService } from '../../Services/cart.service';
 import { TruncatePipe } from '../../pipes/truncate.pipe';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css'] ,
+  styleUrls: ['./product-list.component.css'],
   providers: [TruncatePipe]
 })
 export class ProductListComponent implements OnInit {
@@ -13,7 +14,8 @@ export class ProductListComponent implements OnInit {
   products: any[] = [];
 
   constructor(private productService: ProductsService,
-    private truncatePipe: TruncatePipe) { }
+              private cartService: CartService,
+              private truncatePipe: TruncatePipe) { }
 
   ngOnInit(): void {
     this.fetchProducts();
@@ -23,20 +25,24 @@ export class ProductListComponent implements OnInit {
     this.productService.getProducts().subscribe(
       (response: any[]) => {
         this.products = response;
-        console.log(response)
+        console.log(response);
       },
       (error) => {
         console.error('Error fetching products:', error);
       }
     );
   }
-  addToCart(id: string) {
-    console.log('Added to cart:', id);
-    }
-    increaseQuantity(id: string) {
-    throw new Error('Method not implemented.');
-    }
-    addToFavorites(id: string) {
-    throw new Error('Method not implemented.');
-    }
+
+  addToCart(product: any) {
+    this.cartService.addToCart(product);
+    console.log('Added to cart:', product);
+  }
+
+  increaseQuantity(id: string) {
+    // Implement increaseQuantity functionality here
+  }
+
+  addToFavorites(id: string) {
+    // Implement addToFavorites functionality here
+  }
 }
