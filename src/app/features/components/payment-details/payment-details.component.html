@@ -1,1 +1,53 @@
-<p>payment-details works!</p>
+<app-navigation></app-navigation><br><br><br><br>
+<section class="h-100" style="background-color: #eee;">
+<div class="container">
+    <h1>Payment Details</h1>
+  
+    <!-- Summary of Cart -->
+    <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Summary of Cart</h5>
+          <p>Total Products: {{  cartItems.length }}</p>
+          <p>Shipping Fee: {{0}}</p>
+          <p>Total Price: {{ totalPrice }}</p>
+        </div>
+      </div>
+      
+  
+    <!-- Shipping Address -->
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Shipping Address</h5>
+        <!-- Display shipping address details -->
+      </div>
+    </div>
+  
+    <!-- Payment Method Selection -->
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Select Payment Method</h5>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="paymentMethod" id="mpesa" value="mpesa">
+          <label class="form-check-label" for="mpesa">M-Pesa</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="paymentMethod" id="paypal" value="paypal">
+          <label class="form-check-label" for="paypal">PayPal</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="paymentMethod" id="paypal" value="paypal">
+            <label class="form-check-label" for="paypal">Equity</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="paymentMethod" id="paypal" value="paypal">
+            <label class="form-check-label" for="paypal">Mastercard</label>
+          </div>
+        <!-- Add more payment method options -->
+      </div>
+    </div>
+  
+    <!-- Button to Place Order -->
+    <button type="button" class="btn btn-primary">Place Order</button>
+  </div>
+  </section>
+  

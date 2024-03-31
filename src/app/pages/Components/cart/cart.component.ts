@@ -32,9 +32,22 @@ export class CartComponent implements OnInit {
     );
   }
   proceedToPay() {
+    const paymentData = {
+      cartItems: this.cartItems,
+      // totalPrice: this.calculateTotalPriceOfCart(),
+      // Add any other necessary data
+    };
     this.router.navigate(['features/payment']);
   }
-  
+  // private calculateTotalPriceOfCart(): number {
+  //   // Calculate total price of all items in the cart
+  //   let totalPrice = 0;
+  //   this.cartItems.forEach(item => {
+  //     totalPrice += item.price * (item.quantity || 1);
+  //   });
+  //   console.log("totalprice", totalPrice);
+  //   return totalPrice;
+  // }
   getItemQuantity(item: any): number {
     return item.quantity || 1;
   }
