@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../Services/cart.service';
 
@@ -8,7 +9,8 @@ import { CartService } from '../../Services/cart.service';
 })
 export class CartComponent implements OnInit {
   cartItems: any[] = [];
-
+  itemToDelete: any;
+ openModal: boolean = false;
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
@@ -44,8 +46,19 @@ export class CartComponent implements OnInit {
   }
 
   removeItem(item: any) {
-    // Remove item from cartItems array
-    this.cartItems = this.cartItems.filter(cartItem => cartItem.id !== item.id);
+    // Store the item to delete
+    this.itemToDelete = item;
+
+    // Trigger the modal
+    this.openModal=!this.openModal;
+    // const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+    // confirmationModal.show();
+  }
+
+  confirmDelete() {
+    console.log('confirmDelete')
+    // Remove the item from cartItems array
+    this.cartItems = this.cartItems.filter(cartItem => cartItem.id !== this.itemToDelete.id);
 
     // Update local storage
     localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
@@ -53,12 +66,15 @@ export class CartComponent implements OnInit {
     // Update cart items in the service
     this.cartService.updateCartItems(this.cartItems).subscribe(
       () => {
-        console.log('Item removed from cart:', item);
+        console.log('Item removed from cart:', this.itemToDelete);
       },
       (error: any) => {
         console.error('Error removing item from cart:', error);
       }
     );
+
+    // Clear the itemToDelete variable
+    this.itemToDelete = null;
   }
 
   updateCartItem(item: any) {
