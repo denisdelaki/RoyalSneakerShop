@@ -88,4 +88,14 @@ export class CartComponent implements OnInit {
       }
     );
   }
+  sortByPrice_lowest_First() {
+    this.cartItems.sort((a, b) => {
+      return a.price - b.price; 
+    });
+  }
+  sortByPrice_highest_First() {
+    this.cartItems.sort((a, b) => {
+      return b.price - a.price; 
+    });
+  }
 }

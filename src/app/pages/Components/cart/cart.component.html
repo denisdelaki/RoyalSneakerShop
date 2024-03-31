@@ -9,10 +9,16 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
           <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
           <div>
-            <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!" class="text-body">price <i
-                  class="fas fa-angle-down mt-1"></i></a></p>
+            <p class="mb-0"><span class="text-muted">Sort by price:</span>
+              <mat-icon class="fas fa-angle-down mt-1"  (click)="sortByPrice_lowest_First()">arrow_drop_down</mat-icon>
+              <span>
+                  <mat-icon class="fas fa-angle-down mt-1" (click)="sortByPrice_highest_First()">arrow_drop_up</mat-icon>
+              </span>
+            </p>
+               
           </div>
         </div>
+        
 
         <!-- Loop through cart items -->
         <div *ngFor="let item of cartItems" class="card rounded-3 mb-4">
