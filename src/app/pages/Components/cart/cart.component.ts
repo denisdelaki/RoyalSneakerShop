@@ -1,17 +1,20 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CartService } from '../../Services/cart.service';
-
+import { TruncatePipe } from '../../pipes/truncate.pipe';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css']
+  styleUrls: ['./cart.component.css'],
+  providers: [TruncatePipe]
 })
 export class CartComponent implements OnInit {
+  @ViewChild('quantityInput') quantityInput!: ElementRef;
   cartItems: any[] = [];
   itemToDelete: any;
  openModal: boolean = false;
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private router: Router) {}
 
   ngOnInit(): void {
     this.fetchCart();
@@ -28,7 +31,10 @@ export class CartComponent implements OnInit {
       }
     );
   }
-
+  proceedToPay() {
+    this.router.navigate(['features/payment']);
+  }
+  
   getItemQuantity(item: any): number {
     return item.quantity || 1;
   }
@@ -43,6 +49,17 @@ export class CartComponent implements OnInit {
   increaseQuantity(item: any) {
     item.quantity++;
     this.updateCartItem(item);
+  }
+  calculateTotalPrice(item: any): number {
+    return item.price * (item.quantity || 1);
+  }
+  updateQuantity(item: any, event: any) {
+    const newQuantity = event.target.value;
+    const quantity = parseInt(newQuantity, 10);
+    if (!isNaN(quantity) && quantity >= 0) {
+      item.quantity = quantity;
+      this.updateCartItem(item);
+    }
   }
 
   removeItem(item: any) {
@@ -82,12 +99,17 @@ export class CartComponent implements OnInit {
     this.cartService.updateCartItems(this.cartItems).subscribe(
       () => {
         console.log('Cart item updated:', item);
+        this.saveCartItemsToLocalStorage();
       },
       (error: any) => {
         console.error('Error updating cart item:', error);
       }
     );
   }
+  saveCartItemsToLocalStorage() {
+    localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+  }
+  
   sortByPrice_lowest_First() {
     this.cartItems.sort((a, b) => {
       return a.price - b.price; 

@@ -24,12 +24,16 @@ export class CartService {
   updateCartItems(cartItems: any[]): Observable<void> {
     const batch = this.firestore.firestore.batch();
     const cartCollection = this.firestore.collection('cart');
-
+  
     cartItems.forEach(item => {
-      const docRef = cartCollection.doc(item.id).ref; 
-      batch.set(docRef, item);
+      if (item.id) {
+        const docRef = cartCollection.doc(item.id).ref;
+        batch.set(docRef, item);
+      } else {
+        console.error('Item ID not found:', item);
+      }
     });
-
+  
     return new Observable<void>(observer => {
       batch.commit().then(() => {
         observer.next();
@@ -39,6 +43,7 @@ export class CartService {
       });
     });
   }
+  
 
 
   removeCartItem(itemId: string): Observable<void> {
