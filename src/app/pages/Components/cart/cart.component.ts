@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../../Services/cart.service';
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
-  styleUrl: './cart.component.css'
+  styleUrls: ['./cart.component.css']
 })
-export class CartComponent  implements OnInit {
+export class CartComponent implements OnInit {
   cartItems: any[] = [];
-  constructor(private cartService: CartService) { }
+
+  constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
     this.fetchCart();
   }
+
   fetchCart() {
     this.cartService.getCartItems().subscribe(
       (response: any[]) => {
@@ -23,9 +26,11 @@ export class CartComponent  implements OnInit {
       }
     );
   }
+
   getItemQuantity(item: any): number {
     return item.quantity || 1;
   }
+
   decreaseQuantity(item: any) {
     if (item.quantity > 1) {
       item.quantity--;
@@ -41,6 +46,10 @@ export class CartComponent  implements OnInit {
   removeItem(item: any) {
     // Remove item from cartItems array
     this.cartItems = this.cartItems.filter(cartItem => cartItem.id !== item.id);
+
+    // Update local storage
+    localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+
     // Update cart items in the service
     this.cartService.updateCartItems(this.cartItems).subscribe(
       () => {
@@ -51,6 +60,7 @@ export class CartComponent  implements OnInit {
       }
     );
   }
+
   updateCartItem(item: any) {
     // Update cart items in the service
     this.cartService.updateCartItems(this.cartItems).subscribe(
@@ -62,5 +72,4 @@ export class CartComponent  implements OnInit {
       }
     );
   }
-
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +14,19 @@ export class CartService {
   }
 
   getCartItems(): Observable<any[]> {
-    return this.firestore.collection('cart').valueChanges();
+    const storedCartItems = localStorage.getItem('cartItems');
+    if (storedCartItems) {
+      return of(JSON.parse(storedCartItems));
+    } else {
+      return this.firestore.collection('cart').valueChanges();
+    }
   }
-  updateCartItems(cartItems: any[]): Observable<void> { // Adjust return type
+  updateCartItems(cartItems: any[]): Observable<void> {
     const batch = this.firestore.firestore.batch();
     const cartCollection = this.firestore.collection('cart');
 
     cartItems.forEach(item => {
-      const docRef = cartCollection.doc(item.id).ref;
+      const docRef = cartCollection.doc(item.id).ref; 
       batch.set(docRef, item);
     });
 
@@ -34,6 +39,7 @@ export class CartService {
       });
     });
   }
+
 
   removeCartItem(itemId: string): Observable<void> {
     const docRef = this.firestore.collection('cart').doc(itemId).ref;

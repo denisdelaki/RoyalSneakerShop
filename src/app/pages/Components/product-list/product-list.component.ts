@@ -36,6 +36,19 @@ export class ProductListComponent implements OnInit {
   addToCart(product: any) {
     this.cartService.addToCart(product);
     console.log('Added to cart:', product);
+    // Update cart items in local storage after adding to cart
+    this.updateLocalStorage(product);
+  }
+
+  updateLocalStorage(product: any) {
+    const storedCartItems = localStorage.getItem('cartItems');
+    let cartItems: any[] = [];
+    if (storedCartItems) {
+      cartItems = JSON.parse(storedCartItems);
+    }
+    // Add the newly added product to the cart items stored locally
+    cartItems.push(product);
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }
 
   increaseQuantity(id: string) {
