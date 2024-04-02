@@ -1,62 +1,92 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../../../pages/Services/cart.service';
-import { Console } from 'console';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 @Component({
   selector: 'app-payment-details',
   templateUrl: './payment-details.component.html',
-  styleUrl: './payment-details.component.css'
+  styleUrls: ['./payment-details.component.css']
 })
 export class PaymentDetailsComponent implements OnInit {
   cartItems: any[] = [];
   totalPrice: Number = 0;
   cartItemsLength!: number;
+  selectedPaymentMethod: string = '';
+  mobileNumber: string = '';
 
-  constructor(private route: ActivatedRoute, private cartService: CartService) {}
+  constructor(private route: ActivatedRoute, private cartService: CartService, private http: HttpClient) {}
+
   ngOnInit(): void {
     this.checkLocalStorage();
-    
-  //   this.route.queryParams.subscribe(params => {
-  //     this.cartItems = params['cartItems'] || [];
-  // })
-}
- calculateTotalPrice(): void {
-  console.log(this.cartItems);
-
-  this.totalPrice = this.cartItems.reduce((total, item) => total + (item.price), 0);
-  console.log("Total", this.totalPrice)
-}
-checkLocalStorage() {
-  
-  // Fetch cart items from local storage if available
-  const storedCartItems = localStorage.getItem('cartItems');
-  if (storedCartItems) {
-    this.cartItems = JSON.parse(storedCartItems);
-    this.calculateTotalPrice();
-  } else {
-    // Fetch cart items from the service if not available in local storage
-    this.fetchCartItems();
   }
-}
 
-fetchCartItems() {
-  this.cartService.getCartItems().subscribe(
-    (response: any[]) => {
-      this.cartItems = response;
-      console.log(response);
-      this.updateCartItemsLength();
-      this.calculateTotalPrice();
-    },
-    (error: any) => {
-      console.error('Error fetching cart items:', error);
+  onPaymentMethodChange(event: any) {
+    this.selectedPaymentMethod = event.target.value;
+    // Hide the mobile number input field if payment method is not M-Pesa
+    if (this.selectedPaymentMethod !== 'mpesa') {
+      this.mobileNumber = ''; // Reset mobile number field
     }
-  );
-}
-
-updateCartItemsLength() {
-  if (this.cartItems) {
-    this.cartItemsLength = this.cartItems.length;
-    console.log(this.cartItemsLength);
   }
-}
+
+  calculateTotalPrice(): void {
+    this.totalPrice = this.cartItems.reduce((total, item) => total + item.price, 0);
+  }
+
+  checkLocalStorage() {
+    const storedCartItems = localStorage.getItem('cartItems');
+    if (storedCartItems) {
+      this.cartItems = JSON.parse(storedCartItems);
+      this.calculateTotalPrice();
+    } else {
+      this.fetchCartItems();
+    }
+  }
+
+  fetchCartItems() {
+    this.cartService.getCartItems().subscribe(
+      (response: any[]) => {
+        this.cartItems = response;
+        this.updateCartItemsLength();
+        this.calculateTotalPrice();
+      },
+      (error: any) => {
+        console.error('Error fetching cart items:', error);
+      }
+    );
+  }
+
+  updateCartItemsLength() {
+    if (this.cartItems) {
+      this.cartItemsLength = this.cartItems.length;
+    }
+  }
+
+  placeOrder() {
+    console.log("mobile",this.mobileNumber)
+    // Construct the request payload
+    const payload = {
+      mobileNumber: this.mobileNumber,
+      amount: this.totalPrice
+    };
+
+    // Make HTTP POST request to initiate STK Push via proxy server
+    this.http.post<any>('https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest', payload, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ybjhHWTlBY24zeEhQQVlmVllzNmtPSFRHY0JyZ1NNOVM4Q0Fod2pZTHBWWkhpR0ttOlJTQzhBWFRpQUphNktkb1dyRU1XNmtLc09ZOVlkOEJUaXk3SFpJbzRYZ0lvV2tDTGdGV1JWZUw5WUhpUWpJeEU' 
+      })
+    }).subscribe(
+      (response) => {
+        // Handle successful response (e.g., display success message to user)
+        console.log('STK Push initiated successfully:', response);
+        alert('Order placed successfully!');
+      },
+      (error) => {
+        // Handle error response (e.g., display error message to user)
+        console.error('Error placing order:', error);
+        alert('Error placing order. Please try again later.');
+      }
+    );
+  }
 }

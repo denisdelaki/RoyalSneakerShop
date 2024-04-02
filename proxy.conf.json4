@@ -1,0 +1,11 @@
+{
+    "/api": {
+      "target": "https://sandbox.safaricom.co.ke",
+      "secure": false,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api": ""
+      }
+    }
+  }
+  

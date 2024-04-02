@@ -28,7 +28,7 @@
       <h3 class="card-title">Select Payment Method</h3>
       <div class="d-flex flex-wrap">
         <div class="form-check d-flex align-items-center me-4">
-          <input class="form-check-input" type="radio" name="paymentMethod" id="mpesa" value="mpesa">
+          <input class="form-check-input" type="radio" name="paymentMethod" id="mpesa" value="mpesa" (change)="onPaymentMethodChange($event)">
           <label class="form-check-label" for="mpesa">M-Pesa</label>
           <img style="height: 50px; margin-left: 10px;" src="https://th.bing.com/th/id/OIP.WTNo33P-kZiLTRI6PDNmtQHaFa?rs=1&pid=ImgDetMain" alt="logo">
         </div>
@@ -48,12 +48,22 @@
           <img style="height: 40px; margin-left: 10px;" src="https://th.bing.com/th/id/OIP.Si-iFWCFCDErhDoArcsEcwHaEy?w=820&h=531&rs=1&pid=ImgDetMain" alt="logo">
         </div>
       </div>
+      <div *ngIf="selectedPaymentMethod === 'mpesa'" class="form-group mt-3">
+        <label for="mobileNumber">Mobile Number</label>
+        <input type="text" class="form-control" id="mobileNumber" name="mobileNumber" [(ngModel)]="mobileNumber">
+      </div>
+    
+      <!-- Total price field for all payment methods -->
+      <div class="form-group mt-3">
+        <label for="totalPrice">Total Price</label>
+        <input type="number" class="form-control" id="totalPrice" name="totalPrice" [(ngModel)]="totalPrice">
+      </div>
     </div>
   </div>
   
   
     <!-- Button to Place Order -->
-    <button type="button" class="btn btn-warning btn-block btn-lg">Place Order</button>
+    <button type="button" (click)="placeOrder()" class="btn btn-warning btn-block btn-lg">Place Order</button>
   </div>
   </section>
   
