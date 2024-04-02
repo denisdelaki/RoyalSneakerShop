@@ -9,19 +9,21 @@ import { Console } from 'console';
 })
 export class PaymentDetailsComponent implements OnInit {
   cartItems: any[] = [];
-  totalPrice: number = 0;
+  totalPrice: Number = 0;
   cartItemsLength!: number;
 
   constructor(private route: ActivatedRoute, private cartService: CartService) {}
   ngOnInit(): void {
     this.checkLocalStorage();
+    
   //   this.route.queryParams.subscribe(params => {
   //     this.cartItems = params['cartItems'] || [];
   // })
 }
  calculateTotalPrice(): void {
-  console.log('calculateTotal');
-  this.totalPrice = this.cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  console.log(this.cartItems);
+
+  this.totalPrice = this.cartItems.reduce((total, item) => total + (item.price), 0);
   console.log("Total", this.totalPrice)
 }
 checkLocalStorage() {
@@ -30,6 +32,7 @@ checkLocalStorage() {
   const storedCartItems = localStorage.getItem('cartItems');
   if (storedCartItems) {
     this.cartItems = JSON.parse(storedCartItems);
+    this.calculateTotalPrice();
   } else {
     // Fetch cart items from the service if not available in local storage
     this.fetchCartItems();
