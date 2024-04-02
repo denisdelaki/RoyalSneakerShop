@@ -1,8 +1,8 @@
-
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CartService } from '../../Services/cart.service';
 import { TruncatePipe } from '../../pipes/truncate.pipe';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -13,8 +13,10 @@ export class CartComponent implements OnInit {
   @ViewChild('quantityInput') quantityInput!: ElementRef;
   cartItems: any[] = [];
   itemToDelete: any;
- openModal: boolean = false;
-  constructor(private cartService: CartService, private router: Router) {}
+  openModal: boolean = false;
+  constructor(private cartService: CartService, private router: Router, private snackBar: MatSnackBar) {
+    this.openModal = false;
+  }
 
   ngOnInit(): void {
     this.fetchCart();
@@ -78,35 +80,42 @@ export class CartComponent implements OnInit {
   removeItem(item: any) {
     // Store the item to delete
     this.itemToDelete = item;
-
-    // Trigger the modal
-    this.openModal=!this.openModal;
-    // const confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
-    // confirmationModal.show();
+  
+    // Set openModal to true to display the modal
+    this.openModal = true;
   }
 
   confirmDelete() {
-    console.log('confirmDelete')
+    console.log('confirmDelete');
     // Remove the item from cartItems array
     this.cartItems = this.cartItems.filter(cartItem => cartItem.id !== this.itemToDelete.id);
-
+  
     // Update local storage
     localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
-
+  
     // Update cart items in the service
     this.cartService.updateCartItems(this.cartItems).subscribe(
       () => {
         console.log('Item removed from cart:', this.itemToDelete);
+        // Close the modal after successful deletion
+        this.openModal = false;
+        setTimeout(() => {
+          this.showSuccessToast();
+        }, 1000);
       },
       (error: any) => {
         console.error('Error removing item from cart:', error);
       }
     );
-
+  
     // Clear the itemToDelete variable
     this.itemToDelete = null;
   }
-
+  showSuccessToast() {
+    this.snackBar.open('Item deleted successfully', 'Close', {
+      duration: 2000, // Duration in milliseconds
+    });
+  }
   updateCartItem(item: any) {
     // Update cart items in the service
     this.cartService.updateCartItems(this.cartItems).subscribe(

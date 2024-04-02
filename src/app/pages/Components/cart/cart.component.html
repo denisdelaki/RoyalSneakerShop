@@ -79,7 +79,7 @@
         </div>
 
         <!-- Confirmation Modal -->
-        <div class="modal fade" id="confirmationModal" *ngIf="openModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true" [class.show]="openModal">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -96,7 +96,7 @@
             </div>
           </div>
         </div>
-
+        
       </div>
     </div>
   </div>
