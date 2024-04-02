@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../../../pages/Services/cart.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { PaymentService } from '../../Services/payment.service';
 
 @Component({
   selector: 'app-payment-details',
@@ -15,7 +16,7 @@ export class PaymentDetailsComponent implements OnInit {
   selectedPaymentMethod: string = '';
   mobileNumber: string = '';
 
-  constructor(private route: ActivatedRoute, private cartService: CartService, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private cartService: CartService, private http: HttpClient, private paymentService: PaymentService) {}
 
   ngOnInit(): void {
     this.checkLocalStorage();
@@ -63,30 +64,25 @@ export class PaymentDetailsComponent implements OnInit {
   }
 
   placeOrder() {
-    console.log("mobile",this.mobileNumber)
     // Construct the request payload
     const payload = {
       mobileNumber: this.mobileNumber,
       amount: this.totalPrice
     };
 
-    // Make HTTP POST request to initiate STK Push via proxy server
-    this.http.post<any>('https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest', payload, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Basic ybjhHWTlBY24zeEhQQVlmVllzNmtPSFRHY0JyZ1NNOVM4Q0Fod2pZTHBWWkhpR0ttOlJTQzhBWFRpQUphNktkb1dyRU1XNmtLc09ZOVlkOEJUaXk3SFpJbzRYZ0lvV2tDTGdGV1JWZUw5WUhpUWpJeEU' 
-      })
-    }).subscribe(
-      (response) => {
-        // Handle successful response (e.g., display success message to user)
-        console.log('STK Push initiated successfully:', response);
-        alert('Order placed successfully!');
-      },
-      (error) => {
-        // Handle error response (e.g., display error message to user)
-        console.error('Error placing order:', error);
-        alert('Error placing order. Please try again later.');
-      }
-    );
+    // Call the service method to initiate STK push
+    this.paymentService.initiateSTKPush(payload.mobileNumber, payload.amount)
+      .subscribe(
+        (response) => {
+          // Handle successful response (e.g., display success message to user)
+          console.log('STK Push initiated successfully:', response);
+          alert('Order placed successfully!');
+        },
+        (error) => {
+          // Handle error response (e.g., display error message to user)
+          console.error('Error placing order:', error);
+          alert('Error placing order. Please try again later.');
+        }
+      );
   }
 }

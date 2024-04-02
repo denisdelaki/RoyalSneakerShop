@@ -75,4 +75,8 @@ export class NavigationComponent implements OnInit {
     this.router.navigate(['/cart']);
     console.log("clicked");
   }
+  contactus(){
+    console.log("contactus");
+    this.router.navigate(['/contactus']);
+  }
 }

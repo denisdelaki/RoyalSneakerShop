@@ -9,13 +9,15 @@ import { ProductListComponent } from './Components/product-list/product-list.com
 import { SharedModule } from '../shared/shared.module';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { CartComponent } from './Components/cart/cart.component';
+import { ContactUsComponent } from './Components/contact-us/contact-us.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     ProductListComponent,
     TruncatePipe,
-    CartComponent
+    CartComponent,
+    ContactUsComponent
   ],
   imports: [
     CommonModule,
