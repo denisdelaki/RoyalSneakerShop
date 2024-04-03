@@ -79,4 +79,8 @@ export class NavigationComponent implements OnInit {
     console.log("contactus");
     this.router.navigate(['/contactus']);
   }
+  aboutus()
+  {
+    this.router.navigate(['/aboutUs']);
+  }
 }

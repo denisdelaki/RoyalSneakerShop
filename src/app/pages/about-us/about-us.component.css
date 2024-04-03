@@ -1,0 +1,10 @@
+#connect{
+    border-color: rgb(210, 153, 9);
+    color: white;
+    background-color: black;
+}
+#connect:hover{
+    border-color: rgb(210, 153, 9);
+    color: black;
+    background-color: white;
+}

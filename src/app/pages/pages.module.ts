@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { CartComponent } from './Components/cart/cart.component';
 import { ContactUsComponent } from './Components/contact-us/contact-us.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ContactUsComponent } from './Components/contact-us/contact-us.component
     ProductListComponent,
     TruncatePipe,
     CartComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    AboutUsComponent
   ],
   imports: [
     CommonModule,
