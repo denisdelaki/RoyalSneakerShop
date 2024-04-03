@@ -83,4 +83,7 @@ export class NavigationComponent implements OnInit {
   {
     this.router.navigate(['/aboutUs']);
   }
+  Home(){
+    this.router.navigate(['/']);
+  }
 }

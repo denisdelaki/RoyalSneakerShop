@@ -11,6 +11,7 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 import { CartComponent } from './Components/cart/cart.component';
 import { ContactUsComponent } from './Components/contact-us/contact-us.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { CatalogComponent } from './catalog/catalog.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
     TruncatePipe,
     CartComponent,
     ContactUsComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    CatalogComponent
   ],
   imports: [
     CommonModule,
