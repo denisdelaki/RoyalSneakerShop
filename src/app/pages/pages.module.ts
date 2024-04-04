@@ -13,6 +13,7 @@ import { ContactUsComponent } from './Components/contact-us/contact-us.component
 import { AboutUsComponent } from './Components/about-us/about-us.component';
 import { CatalogComponent } from './Components/catalog/catalog.component';
 import { MaterialModule } from './material/material.module';
+import { ElectronicsComponent } from './electronics/electronics.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -22,6 +23,7 @@ import { MaterialModule } from './material/material.module';
     ContactUsComponent,
     AboutUsComponent,
     CatalogComponent,
+    ElectronicsComponent
   ],
   imports: [
     CommonModule,

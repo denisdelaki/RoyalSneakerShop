@@ -1,18 +1,14 @@
-<!-- <app-navigation></app-navigation><br><br><br><br> -->
 <mat-toolbar>
-  <!-- <app-breadcrumbs></app-breadcrumbs> -->
 
     <span>Catalog</span>
-    <!-- <button mat-icon-button [matMenuTriggerFor]="menu"> -->
       <mat-icon [matMenuTriggerFor]="menu">keyboard_arrow_down</mat-icon>
-    <!-- </button> -->
     <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/catalog/categories/electronics">Electronics</button>
-      <button mat-menu-item routerLink="/catalog/categories/jewelry">Jewelry</button>
-      <button mat-menu-item routerLink="/catalog/categories/mensclothing">Men's Clothing</button>
-      <button mat-menu-item routerLink="/catalog/categories/womensclothing">Women's Clothing</button>
+      <button mat-menu-item [routerLink]="['/electronics']" [queryParams]="{ category: 'electronics' }">Electronics</button>
+      <button mat-menu-item [routerLink]="['/jewelry']" [queryParams]="{ category: 'jewelry' }">Jewelry</button>
+      <button mat-menu-item [routerLink]="['/mensclothing']" [queryParams]="{ category: 'mensclothing' }">Men's Clothing</button>
+      <button mat-menu-item [routerLink]="['/womensclothing']" [queryParams]="{ category: 'womensclothing' }">Women's Clothing</button>
     </mat-menu>
+    
   </mat-toolbar>
   <app-product-list></app-product-list>
-  <!-- <router-outlet></router-outlet> -->
   

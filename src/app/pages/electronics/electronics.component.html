@@ -1,0 +1,47 @@
+<app-catalog></app-catalog>
+<section class="section-products">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="header">
+                    <h2>{{ category | titlecase }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Single Product -->
+            <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let product of products">
+                <div class="single-product card mb-4">
+                    <div class="image-container">
+                        <img class="card-img-top product-image" [src]="product.image" alt="Product Image">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Title: {{ product.title | truncate: 19 }}</p>
+                        <p class="card-text">Category: {{ product.category }}</p>
+                        <p class="card-text">Price: ${{ product.price }}</p>
+                        <ul class="list-unstyled d-flex justify-content-between">
+                            <li class="me-3">
+                                <a href="#" (click)="addToCart(product)">
+                                    <mat-icon class="cart-icon">shopping_cart</mat-icon><br>
+                                    <span class="action-text">Add to Cart</span>
+                                </a>
+                            </li>
+                            <li class="me-3">
+                                <a href="#" (click)="addToFavorites(product)">
+                                    <mat-icon class="favorite-icon">favorite</mat-icon><br>
+                                    <span class="action-text">Favorite</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" (click)="increaseQuantity(product)">
+                                    <mat-icon class="add-icon">add</mat-icon><br>
+                                    <span class="action-text">Add</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

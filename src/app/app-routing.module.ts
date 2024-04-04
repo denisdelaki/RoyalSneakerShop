@@ -11,9 +11,9 @@ const routes: Routes = [
   { path: '', loadChildren: () => import('./pages/pages.module')
   .then(m => m.PagesModule)
   },
-  { path: 'catalog/categories', loadChildren: () => import('./categories/categories.module')
-  .then(m => m.CategoriesModule)
-  },
+  // { path: 'catalog/categories', loadChildren: () => import('./categories/categories.module')
+  // .then(m => m.CategoriesModule)
+  // },
 ];
 
 @NgModule({
