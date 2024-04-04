@@ -86,4 +86,7 @@ export class NavigationComponent implements OnInit {
   Home(){
     this.router.navigate(['/']);
   }
+  catalog(){
+    this.router.navigate(['/catalog']);
+  }
 }
