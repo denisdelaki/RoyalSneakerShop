@@ -1,4 +1,4 @@
-<app-navigation></app-navigation><br><br><br><br>
+<!-- <app-navigation></app-navigation><br><br><br><br> -->
 <mat-toolbar>
   <!-- <app-breadcrumbs></app-breadcrumbs> -->
 
@@ -7,12 +7,12 @@
       <mat-icon [matMenuTriggerFor]="menu">keyboard_arrow_down</mat-icon>
     <!-- </button> -->
     <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/electronics">Electronics</button>
-      <button mat-menu-item routerLink="/jewelry">Jewelry</button>
-      <button mat-menu-item routerLink="/mens-clothing">Men's Clothing</button>
-      <button mat-menu-item routerLink="/womens-clothing">Women's Clothing</button>
+      <button mat-menu-item routerLink="/catalog/categories/electronics">Electronics</button>
+      <button mat-menu-item routerLink="/catalog/categories/jewelry">Jewelry</button>
+      <button mat-menu-item routerLink="/catalog/categories/mensclothing">Men's Clothing</button>
+      <button mat-menu-item routerLink="/catalog/categories/womensclothing">Women's Clothing</button>
     </mat-menu>
   </mat-toolbar>
-  
-  <router-outlet></router-outlet>
+  <app-product-list></app-product-list>
+  <!-- <router-outlet></router-outlet> -->
   

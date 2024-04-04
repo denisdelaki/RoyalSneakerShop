@@ -21,7 +21,7 @@ import { MaterialModule } from './material/material.module';
     CartComponent,
     ContactUsComponent,
     AboutUsComponent,
-    CatalogComponent
+    CatalogComponent,
   ],
   imports: [
     CommonModule,
