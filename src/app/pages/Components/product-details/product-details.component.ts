@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from '../../Services/products.service';
 import { CartService } from '../../Services/cart.service';
 
@@ -15,6 +15,7 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private productService: ProductsService,
     private route: ActivatedRoute,
+    private router: Router,
     private cartService: CartService,
   ) {}
 
@@ -116,6 +117,14 @@ export class ProductDetailsComponent implements OnInit {
     // Add the newly added product to the cart items stored locally
     cartItems.push(product);
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }
+  viewProductDetails(productId: number) {
+    if (productId) {
+      // Set the product ID to local storage
+      localStorage.setItem('productId', productId.toString());
+      // Navigate to product details page with product ID as route parameter
+      this.router.navigate(['/product-detail', productId]);
+    }
   }
   ngOnDestroy(): void {
     // Clear the product ID from local storage

@@ -110,7 +110,7 @@
       <h3 class="text-center mb-4">Similar Items</h3>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
         <div *ngFor="let product of products" class="col mb-4">
-          <div class="card" style="max-height: 90vh; min-width: 100%;">
+          <div class="card" style="max-height: 90vh; min-width: 100%;" (click)="viewProductDetails(product.id)">
             <div class="row g-0">
               <div class="col-md-4">
                 <a href="#">
