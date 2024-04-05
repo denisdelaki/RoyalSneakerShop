@@ -14,6 +14,7 @@ import { AboutUsComponent } from './Components/about-us/about-us.component';
 import { CatalogComponent } from './Components/catalog/catalog.component';
 import { MaterialModule } from './material/material.module';
 import { ElectronicsComponent } from './electronics/electronics.component';
+import { ProductDetailsComponent } from './Components/product-details/product-details.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -23,7 +24,8 @@ import { ElectronicsComponent } from './electronics/electronics.component';
     ContactUsComponent,
     AboutUsComponent,
     CatalogComponent,
-    ElectronicsComponent
+    ElectronicsComponent,
+    ProductDetailsComponent
   ],
   imports: [
     CommonModule,
