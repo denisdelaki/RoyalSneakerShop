@@ -9,6 +9,7 @@ import { CartService } from '../../Services/cart.service';
   styleUrls: ['./product-details.component.css']
 })
 export class ProductDetailsComponent implements OnInit {
+
   product: any = {}; 
   products: any[] = [];
   category: string="";
@@ -125,6 +126,10 @@ export class ProductDetailsComponent implements OnInit {
       // Navigate to product details page with product ID as route parameter
       this.router.navigate(['/product-detail', productId]);
     }
+  }
+  proceedToPay(id: number) {
+    console.log("proceeded to pay", id);  
+    this.router.navigate(['/features/payment']);
   }
   ngOnDestroy(): void {
     // Clear the product ID from local storage
