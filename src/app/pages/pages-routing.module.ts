@@ -6,6 +6,7 @@ import { ContactUsComponent } from './Components/contact-us/contact-us.component
 import { AboutUsComponent } from './Components/about-us/about-us.component';
 import { CatalogComponent } from './Components/catalog/catalog.component';
 import { ElectronicsComponent } from './electronics/electronics.component';
+import { ProductDetailsComponent } from './Components/product-details/product-details.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -14,6 +15,8 @@ const routes: Routes = [
   {path: 'aboutUs', component: AboutUsComponent},
   {path: 'catalog', component: CatalogComponent},
   {path: ':category', component: ElectronicsComponent},
+  // {path: '**', redirectTo: '', component: HomeComponent},
+  {path: 'product-detail/:id', component: ProductDetailsComponent}
 
 
 ];

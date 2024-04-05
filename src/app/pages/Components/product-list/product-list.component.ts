@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ProductsService } from '../../Services/products.service';
 import { CartService } from '../../Services/cart.service';
 import { TruncatePipe } from '../../pipes/truncate.pipe';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -12,10 +13,10 @@ import { TruncatePipe } from '../../pipes/truncate.pipe';
 export class ProductListComponent implements OnInit {
 
   products: any[] = [];
-
+  @Output() productClicked: EventEmitter<number> = new EventEmitter<number>();
   constructor(private productService: ProductsService,
               private cartService: CartService,
-              private truncatePipe: TruncatePipe) { }
+              private router: Router) { }
 
   ngOnInit(): void {
     this.fetchProducts();
@@ -58,4 +59,13 @@ export class ProductListComponent implements OnInit {
   addToFavorites(id: string) {
     // Implement addToFavorites functionality here
   }
+  viewProductDetails(productId: number) {
+    if (productId) {
+      // Set the product ID to local storage
+      localStorage.setItem('productId', productId.toString());
+      // Navigate to product details page with product ID as route parameter
+      this.router.navigate(['/product-detail', productId]);
+    }
+  }
 }
+  
