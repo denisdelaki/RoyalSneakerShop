@@ -1,7 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../../../pages/Services/cart.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { PaymentService } from '../../../features/services/payment.service';
+// import { PaymentService } from '../../../features/services/payment.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -23,7 +23,7 @@ export class PaymentDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute, 
     private cartService: CartService, 
     private http: HttpClient, 
-    private paymentService: PaymentService,
+    // private paymentService: PaymentService,
     private fb: FormBuilder
 
   ) {
@@ -105,17 +105,17 @@ export class PaymentDetailsComponent implements OnInit {
         amount: this.totalPrice
       };
       
-      this.paymentService.initiateSTKPush(payload.mobileNumber, payload.amount)
-        .subscribe(
-          (response: { success: boolean, message: string }) => {
-            console.log('STK Push initiated successfully:', response);
-            alert('Order placed successfully!');
-          },
-          (error: any) => {
-            console.error('Error placing order:', error);
-            alert('Error placing order. Please try again later.');
-          }
-        );
+      // this.paymentService.initiateSTKPush(payload.mobileNumber, payload.amount)
+      //   .subscribe(
+      //     (response: { success: boolean, message: string }) => {
+      //       console.log('STK Push initiated successfully:', response);
+      //       alert('Order placed successfully!');
+      //     },
+      //     (error: any) => {
+      //       console.error('Error placing order:', error);
+      //       alert('Error placing order. Please try again later.');
+      //     }
+      //   );
     }
   }
 }
