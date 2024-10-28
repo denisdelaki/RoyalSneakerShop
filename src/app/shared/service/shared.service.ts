@@ -6,7 +6,9 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SharedService {
 
-  constructor() { }
+  constructor() {
+    
+   }
 
   private signupSource = new BehaviorSubject<boolean>(false);
   currentSignupState = this.signupSource.asObservable();
@@ -19,7 +21,12 @@ export class SharedService {
   }
 
   updateLoginState(isLoggedIn: boolean) {
-    this.loginStateSource.next(isLoggedIn);
+    const userId = localStorage.getItem('userId');
+    if (userId) {
+      this.loginStateSource.next(true);
+    } else {
+      this.loginStateSource.next(isLoggedIn);
+    }
   }
 
 }

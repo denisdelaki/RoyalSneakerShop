@@ -78,7 +78,7 @@ export class PaymentDetailsComponent implements OnInit {
           console.log('STK Push initiated successfully:', response);
           alert('Order placed successfully!');
         },
-        (error) => {
+        (error: any) => {
           // Handle error response (e.g., display error message to user)
           console.error('Error placing order:', error);
           alert('Error placing order. Please try again later.');

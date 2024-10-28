@@ -10,6 +10,7 @@ import { SharedService } from '../../service/shared.service';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
+
   isLoggedIn: boolean = false;
   showLogin: boolean = false;
   cartItems: any;
@@ -30,9 +31,13 @@ export class NavigationComponent implements OnInit {
     const userId = localStorage.getItem('userId');
     if (userId) {
       this.isLoggedIn = true;
+      // Update the shared service state to match localStorage
+      this.shared.updateLoginState(true);
     } else {
       this.isLoggedIn = false;
+      this.shared.updateLoginState(false);
     }
+  
 
     // Fetch cart items from local storage if available
     const storedCartItems = localStorage.getItem('cartItems');
@@ -79,11 +84,15 @@ export class NavigationComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-
+    productList() {
+      this.router.navigate(['/product-list']);
+    }
+    myAccount() {
+      this.router.navigate(['/features/myprofile']);
+    }
 
   cart() {
     this.router.navigate(['/cart']);
-    console.log("clicked");
   }
   contactus(){
     console.log("contactus");

@@ -15,6 +15,7 @@ import { CatalogComponent } from './Components/catalog/catalog.component';
 import { MaterialModule } from './material/material.module';
 import { ElectronicsComponent } from './electronics/electronics.component';
 import { ProductDetailsComponent } from './Components/product-details/product-details.component';
+import { FeaturedProductsComponent } from './featured-products/featured-products.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -25,7 +26,8 @@ import { ProductDetailsComponent } from './Components/product-details/product-de
     AboutUsComponent,
     CatalogComponent,
     ElectronicsComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    FeaturedProductsComponent
   ],
   imports: [
     CommonModule,

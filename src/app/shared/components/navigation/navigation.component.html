@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <!-- Home Link -->
-                <li class="nav-item">
+                <li class="nav-item"  *ngIf="!isLoggedIn">
                     <a class="nav-link" (click)="Home()"
                        style="color: white; position: relative;">
                         Home
@@ -24,7 +24,7 @@
                     </a>
                 </li>
                 <!-- Catalog Link -->
-                <li class="nav-item">
+                <li class="nav-item"  *ngIf="!isLoggedIn">
                     <a class="nav-link" (click)="catalog()"
                        style="color: white; position: relative;">
                         Catalog
@@ -32,7 +32,7 @@
                     </a>
                 </li>
                 <!-- About Us Link -->
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="!isLoggedIn">
                     <a class="nav-link" (click)="aboutus()"
                        style="color: white; position: relative;">
                         About Us
@@ -40,10 +40,34 @@
                     </a>
                 </li>
                 <!-- Contact Us Link -->
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="!isLoggedIn">
                     <a class="nav-link" (click)="contactus()"
                        style="color: white; position: relative;">
                         Contact Us
+                        <div class="underline"></div>
+                    </a>
+                </li>
+
+                <li class="nav-item" *ngIf="isLoggedIn">
+                    <a class="nav-link" (click)="myAccount()"
+                       style="color: white; position: relative;">
+                        My Account
+                        <div class="underline"></div>
+                    </a>
+                </li>
+
+                <li class="nav-item" *ngIf="isLoggedIn">
+                    <a class="nav-link" (click)=" productList()"
+                       style="color: white; position: relative;">
+                        Product List
+                        <div class="underline"></div>
+                    </a>
+                </li>
+
+                <li class="nav-item" *ngIf="isLoggedIn">
+                    <a class="nav-link" (click)="cart()"
+                       style="color: white; position: relative;">
+                        Cart
                         <div class="underline"></div>
                     </a>
                 </li>
