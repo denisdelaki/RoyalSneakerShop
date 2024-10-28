@@ -73,7 +73,7 @@ export class PaymentDetailsComponent implements OnInit {
     // Call the service method to initiate STK push
     this.paymentService.initiateSTKPush(payload.mobileNumber, payload.amount)
       .subscribe(
-        (response) => {
+        (response: { success: boolean, message: string }) => {
           // Handle successful response (e.g., display success message to user)
           console.log('STK Push initiated successfully:', response);
           alert('Order placed successfully!');
