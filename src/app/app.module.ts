@@ -12,7 +12,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { environment } from '../environments/environments';
+// import { environment } from '../environments/environments';
 
 
 @NgModule({
@@ -25,7 +25,7 @@ import { environment } from '../environments/environments';
     HttpClientModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    // AngularFireModule.initializeApp(environment.firebase),
     SharedModule, 
     MatSnackBarModule
   ],
