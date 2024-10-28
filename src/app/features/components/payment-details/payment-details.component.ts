@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from '../../../pages/Services/cart.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { PaymentService } from '../../services/payment.service';
+import { PaymentService } from '../../../features/services/payment.service';
+import { Component, OnInit } from '@angular/core';
+
 
 @Component({
   selector: 'app-payment-details',
