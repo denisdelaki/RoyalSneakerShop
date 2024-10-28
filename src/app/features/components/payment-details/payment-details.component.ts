@@ -3,6 +3,7 @@ import { CartService } from '../../../pages/Services/cart.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { PaymentService } from '../../../features/services/payment.service';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -16,20 +17,38 @@ export class PaymentDetailsComponent implements OnInit {
   cartItemsLength!: number;
   selectedPaymentMethod: string = '';
   mobileNumber: string = '';
+  paymentForm!: FormGroup;
 
-  constructor(private route: ActivatedRoute, private cartService: CartService, private http: HttpClient, private paymentService: PaymentService) {}
+
+  constructor(private route: ActivatedRoute, 
+    private cartService: CartService, 
+    private http: HttpClient, 
+    private paymentService: PaymentService,
+    private fb: FormBuilder
+
+  ) {
+    this.paymentForm = this.fb.group({
+      paymentMethod: ['', Validators.required],
+      mobileNumber: ['', [
+        Validators.pattern('^[0-9]{10}$'),
+        Validators.minLength(10),
+        Validators.maxLength(10)
+      ]],
+      totalPrice: [{value: '', disabled: true}]
+    });
+  }
 
   ngOnInit(): void {
     this.checkLocalStorage();
   }
 
-  onPaymentMethodChange(event: any) {
-    this.selectedPaymentMethod = event.target.value;
-    // Hide the mobile number input field if payment method is not M-Pesa
-    if (this.selectedPaymentMethod !== 'mpesa') {
-      this.mobileNumber = ''; // Reset mobile number field
-    }
-  }
+  // onPaymentMethodChange(event: any) {
+  //   this.selectedPaymentMethod = event.target.value;
+  //   // Hide the mobile number input field if payment method is not M-Pesa
+  //   if (this.selectedPaymentMethod !== 'mpesa') {
+  //     this.mobileNumber = ''; // Reset mobile number field
+  //   }
+  // }
 
   calculateTotalPrice(): void {
     this.totalPrice = this.cartItems.reduce((total, item) => total + item.price, 0);
@@ -64,26 +83,39 @@ export class PaymentDetailsComponent implements OnInit {
     }
   }
 
-  placeOrder() {
-    // Construct the request payload
-    const payload = {
-      mobileNumber: this.mobileNumber,
-      amount: this.totalPrice
-    };
+  onPaymentMethodChange(event: any) {
+    const paymentMethod = event.target.value;
+    this.paymentForm.patchValue({ paymentMethod });
+    
+    if (paymentMethod === 'mpesa') {
+      this.paymentForm.get('mobileNumber')?.setValidators([
+        Validators.required,
+        Validators.pattern('^[0-9]{10}$')
+      ]);
+    } else {
+      this.paymentForm.get('mobileNumber')?.clearValidators();
+    }
+    this.paymentForm.get('mobileNumber')?.updateValueAndValidity();
+  }
 
-    // Call the service method to initiate STK push
-    this.paymentService.initiateSTKPush(payload.mobileNumber, payload.amount)
-      .subscribe(
-        (response: { success: boolean, message: string }) => {
-          // Handle successful response (e.g., display success message to user)
-          console.log('STK Push initiated successfully:', response);
-          alert('Order placed successfully!');
-        },
-        (error: any) => {
-          // Handle error response (e.g., display error message to user)
-          console.error('Error placing order:', error);
-          alert('Error placing order. Please try again later.');
-        }
-      );
+  placeOrder() {
+    if (this.paymentForm.valid) {
+      const payload = {
+        mobileNumber: this.paymentForm.get('mobileNumber')?.value,
+        amount: this.totalPrice
+      };
+      
+      this.paymentService.initiateSTKPush(payload.mobileNumber, payload.amount)
+        .subscribe(
+          (response: { success: boolean, message: string }) => {
+            console.log('STK Push initiated successfully:', response);
+            alert('Order placed successfully!');
+          },
+          (error: any) => {
+            console.error('Error placing order:', error);
+            alert('Error placing order. Please try again later.');
+          }
+        );
+    }
   }
 }
