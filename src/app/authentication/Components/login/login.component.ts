@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UserService } from '../../Services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'; 
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { SharedService } from '../../../shared/service/shared.service';
 
 
 @Component({
@@ -11,10 +12,10 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   //data passage to and from other components 
  
-  @Input() isSignup: boolean = true;
+   isSignup: boolean = false;
   @Output() isLoggedInChange: EventEmitter<boolean> = new EventEmitter<boolean>();
   userForm: FormGroup;
   loginform: FormGroup;
@@ -24,7 +25,8 @@ export class LoginComponent {
     private formBuilder: FormBuilder, 
     private snackBar: MatSnackBar, 
     private auth: AngularFireAuth,
-    private router: Router
+    private router: Router,
+    private shared: SharedService
   ) {
     this.userForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -33,6 +35,15 @@ export class LoginComponent {
     this.loginform = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/)]]
+    });
+
+    console.log("isSignup:", this.isSignup);
+  }
+
+  ngOnInit(): void {
+    this.shared.currentSignupState.subscribe((isSignup: boolean) => {
+      console.log("isSignup:", isSignup);
+      this.isSignup = isSignup;
     });
   }
 
@@ -52,7 +63,7 @@ export class LoginComponent {
           // Show success snackbar
           this.openSnackBar('Signup successful');
           // Navigate to 'myprofile' route
-          this.isLoggedInChange.emit(true) ;
+          this.shared.updateLoginState(true);
           this.router.navigate(['/features/myprofile']);
         })
         .catch(error => {
@@ -99,7 +110,7 @@ export class LoginComponent {
           }
           // Show success snackbar
           this.openSnackBar('Login successful');
-          this.isLoggedInChange.emit(true) ;
+          this.shared.updateLoginState(true);
           // Navigate to 'myprofile' route
           this.router.navigate(['/features/myprofile']);
         })
@@ -128,6 +139,37 @@ export class LoginComponent {
       this.userForm.markAllAsTouched();
     }
   }
+
+  initiatePasswordReset() {
+    const email = this.loginform.get('email')?.value;
+    
+    if (!email) {
+      this.openSnackBar('Please enter your email address first');
+      return;
+    }
+  
+    // First verify if email exists
+    this.auth.fetchSignInMethodsForEmail(email)
+      .then((signInMethods) => {
+        if (signInMethods.length > 0) {
+          // Email exists, send reset email
+          this.auth.sendPasswordResetEmail(email)
+            .then(() => {
+              this.openSnackBar('Password reset email sent. Please check your inbox.');
+            })
+            .catch((error) => {
+              this.openSnackBar('Error sending reset email: ' + error.message);
+            });
+        } else {
+          this.openSnackBar('No account found with this email address. Sign up');
+        }
+      })
+      .catch((error) => {
+        this.openSnackBar('Error verifying email: ' + error.message);
+      });
+  }
+  
+  
 
   // Function to open snackbar
   openSnackBar(message: string) {

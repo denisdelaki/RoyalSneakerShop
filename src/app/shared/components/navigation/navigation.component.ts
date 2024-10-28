@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from '../../../pages/Services/cart.service';
+import { SharedService } from '../../service/shared.service';
 
 
 @Component({
@@ -9,15 +10,20 @@ import { CartService } from '../../../pages/Services/cart.service';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
-  @Output() isSignup: EventEmitter<boolean> = new EventEmitter<boolean>();
   isLoggedIn: boolean = false;
+  showLogin: boolean = false;
   cartItems: any;
   cartItemsLength!: Number;
 
-  constructor(private router: Router, private cartService: CartService) {}
+  constructor(private router: Router, 
+    private shared: SharedService,
+    private cartService: CartService) {}
 
   ngOnInit(): void {
     this.checkLocalStorage();
+    this.shared.currentLoginState.subscribe((isLoggedIn: boolean) => {
+      this.isLoggedIn = isLoggedIn;
+    });
   }
 
   checkLocalStorage() {
@@ -57,20 +63,23 @@ export class NavigationComponent implements OnInit {
     }
   }
   login() {
-    this.isSignup.emit(false);
-    this.isLoggedIn = true;
+    this.shared.changeSignupState(false)
+    this.router.navigate(['/auth/']);
+    // this.isLoggedIn = true;
   }
 
   signup() {
-    this.isSignup.emit(true);
-    this.isLoggedIn = true;
+    this.shared.changeSignupState(true)
+    this.router.navigate(['/auth']);
   }
 
   logout() {
     localStorage.removeItem('userId');
-    this.isLoggedIn = false;
+    this.shared.updateLoginState(false);
     this.router.navigate(['/']);
   }
+
+
 
   cart() {
     this.router.navigate(['/cart']);
