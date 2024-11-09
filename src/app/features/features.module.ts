@@ -9,10 +9,16 @@ import { MatInputModule } from '@angular/material/input';
 import { SharedModule } from '../shared/shared.module';
 import { PaymentDetailsComponent } from './components/payment-details/payment-details.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MyProductsComponent } from './components/my-products/my-products.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { CreateProductComponent } from './dialogs/create-product/create-product.component';
 @NgModule({
   declarations: [
     UserProfileComponent,
-    PaymentDetailsComponent
+    PaymentDetailsComponent,
+    MyProductsComponent,
+    CreateProductComponent
   ],
   imports: [
     CommonModule,
@@ -21,6 +27,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
+    MatButtonModule,
+    MatIconModule,
     SharedModule
   ]
 })

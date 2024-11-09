@@ -57,6 +57,14 @@
                 </li>
 
                 <li class="nav-item" *ngIf="isLoggedIn">
+                    <a class="nav-link" (click)=" myProductList()"
+                       style="color: white; position: relative;">
+                        My Products
+                        <div class="underline"></div>
+                    </a>
+                </li>
+
+                <li class="nav-item" *ngIf="isLoggedIn">
                     <a class="nav-link" (click)=" productList()"
                        style="color: white; position: relative;">
                         Product List

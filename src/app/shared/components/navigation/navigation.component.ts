@@ -87,6 +87,10 @@ export class NavigationComponent implements OnInit {
     productList() {
       this.router.navigate(['/product-list']);
     }
+    myProductList() {
+      this.router.navigate(['/features/my-product-list']);
+    }
+
     myAccount() {
       this.router.navigate(['/features/myprofile']);
     }
