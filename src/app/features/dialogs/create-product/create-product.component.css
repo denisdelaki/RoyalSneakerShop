@@ -1,0 +1,56 @@
+.dialog-container {
+    padding: 20px;
+    max-width: 800px;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .full-span {
+    grid-column: 1 / -1;
+  }
+  
+  .image-uploads {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .image-uploads h3 {
+    margin-bottom: 20px;
+  }
+  
+  .upload-section {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .preview-image {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 10px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  
+  input[type="file"] {
+    margin: 10px 0;
+  }
+  
+  
+  
+  mat-dialog-actions {
+    margin-top: 20px;
+    padding: 20px 0;
+  }
+  
+  button {
+    margin-left: 8px;
+  }
+  

@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CreateProductComponent } from '../../dialogs/create-product/create-product.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Product } from '../../../core/Models/Products';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+
 
 @Component({
   selector: 'app-my-products',
@@ -7,20 +13,47 @@ import { Router } from '@angular/router';
   styleUrl: './my-products.component.css'
 })
 export class MyProductsComponent implements OnInit {
-  products: any[] = [];
+  products: Product[] = [];
   filteredProducts: any[] = [];
 
   constructor(
     private router: Router,
+    private dialog: MatDialog, 
+    private firestore: AngularFirestore
   ) { }
 
   ngOnInit(): void {
-    
+    this.loadProducts();
   }
 
   createNewProduct() {
-    this.router.navigate(['/create-product']);
+    const dialogRef = this.dialog.open(CreateProductComponent, {
+      width: '700px'
+    });
+
+    dialogRef.afterClosed().subscribe(async (result: Product) => {
+      if (result) {
+        try {
+          console.log("products to be created",result);
+          // Add product to Firestore
+          await this.firestore.collection('products').add(result);
+          // Refresh products list
+          this.loadProducts();
+        } catch (error) {
+          console.error('Error adding product:', error);
+        }
+      }
+    });
   }
+
+  loadProducts() {
+    this.firestore.collection('products')
+      .valueChanges()
+      .subscribe((products: any[]) => {
+        this.products = products;
+      });
+  }
+  
 
   viewProductDetails(productId: number) {
     if (productId) {

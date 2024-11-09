@@ -13,6 +13,9 @@ import { MyProductsComponent } from './components/my-products/my-products.compon
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CreateProductComponent } from './dialogs/create-product/create-product.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   declarations: [
     UserProfileComponent,
@@ -29,6 +32,9 @@ import { CreateProductComponent } from './dialogs/create-product/create-product.
     MatSnackBarModule,
     MatButtonModule,
     MatIconModule,
+    MatDialogModule,
+    MatOptionModule,
+    MatSelectModule,
     SharedModule
   ]
 })
