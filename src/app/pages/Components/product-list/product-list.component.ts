@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 export class ProductListComponent implements OnInit {
 
   products: any[] = [];
+  filteredProducts: any[] = [];
+
   @Output() productClicked: EventEmitter<number> = new EventEmitter<number>();
   constructor(private productService: ProductsService,
               private cartService: CartService,
@@ -26,13 +28,38 @@ export class ProductListComponent implements OnInit {
     this.productService.getProducts().subscribe(
       (response: any[]) => {
         this.products = response;
-        console.log(response);
+        this.filteredProducts = response;
       },
       (error) => {
         console.error('Error fetching products:', error);
       }
     );
   }
+
+  handleSearch(searchData: {searchTerm: string, searchBy: string}) {
+    if (!searchData.searchTerm) {
+      this.filteredProducts = this.products;
+      return;
+    }
+
+    this.filteredProducts = this.products.filter(product => {
+      const searchValue = searchData.searchTerm.toLowerCase();
+      switch (searchData.searchBy) {
+        case 'name':
+          return product.title.toLowerCase().includes(searchValue);
+        case 'brand':
+          return product.brand.toLowerCase().includes(searchValue);
+        case 'price':
+          return product.price.toString().includes(searchValue);
+        case 'size':
+          return product.size.toLowerCase().includes(searchValue);
+        default:
+          return true;
+      }
+    });
+  }
+
+
 
   addToCart(product: any) {
     this.cartService.addToCart(product);

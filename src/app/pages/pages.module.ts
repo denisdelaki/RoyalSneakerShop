@@ -32,7 +32,9 @@ import { FeaturedProductsComponent } from './featured-products/featured-products
   imports: [
     CommonModule,
     MaterialModule,
-    PagesRoutingModule, AuthenticationModule, SharedModule  ],
+    PagesRoutingModule, 
+    AuthenticationModule, 
+    SharedModule  ],
     exports:[MaterialModule]
 })
 export class PagesModule { }

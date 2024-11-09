@@ -7,9 +7,10 @@
                 </div>
             </div>
         </div>
+        <app-search></app-search>
         <div class="row">
             <!-- Single Product -->
-            <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let product of products">
+            <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let product of filteredProducts">
                 <div class="single-product card mb-4">
                     <div class="image-container">
                         <img class="card-img-top product-image" [src]="product.image" alt="Product Image">

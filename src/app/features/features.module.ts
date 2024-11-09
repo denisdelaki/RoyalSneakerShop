@@ -7,12 +7,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SharedModule } from '../shared/shared.module';
-// import { PaymentDetailsComponent } from './components/payment-details/payment-details.component';
+import { PaymentDetailsComponent } from './components/payment-details/payment-details.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     UserProfileComponent,
-    // PaymentDetailsComponent
+    PaymentDetailsComponent
   ],
   imports: [
     CommonModule,
